@@ -56,7 +56,7 @@ const refreshToken = async (req: Request, res: Response) => {
 	const refreshToken = req.body.Token;
 	if (!refreshToken) return res.status(401).json({ message: "User not authenticated" });
 	else if (!(await Token.findOne({ Value: refreshToken }))) {
-		return res.status(403).json({ message: "Forbidden user" });
+		return res.status(403).json({ message: "Invalid refresh token" });
 	}
 	jwt.verify(refreshToken, config.token.refreshTokenSecret, async (err: any, user: any) => {
 		if (err) return res.status(403).json({ message: "Invalid refresh token" });
