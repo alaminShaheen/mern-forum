@@ -6,6 +6,8 @@ const router = express.Router();
 
 router.use(AuthMiddleware.authenticateToken);
 
-router.get("/test", AuthController.test)
+router
+.get("/test", AuthController.test)
+.delete("/logout", AuthController.logout)
 
 export { router as protectedRouter };

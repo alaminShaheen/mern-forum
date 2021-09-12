@@ -6,7 +6,8 @@ import { Answer as AnswerModel } from "Models/answer.model";
 import { useEffect, useState } from "react";
 import { Container, Row } from "reactstrap";
 import * as QuestionServices from "Services/question.services";
-export const Home = () => {
+import { withRouter } from "react-router";
+const Home = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [questions, setQuestions] = useState<Question[]>([]);
 
@@ -50,3 +51,5 @@ export const Home = () => {
 		</Container>
 	);
 };
+
+export default withRouter(Home);
