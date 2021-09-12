@@ -7,7 +7,7 @@ import { IUser } from "../Interfaces/user.interface";
 export const authenticateToken = (req: Request, res: Response, next: NextFunction) => {
 	const authHeader = req.headers["authorization"];
 	const token = authHeader && authHeader.split(" ")[1];
-	if (!token) return res.status(401).json({message: "User not authenticated"});
+	if (!token) return res.status(401).json({ message: "User not authenticated" });
 
 	jwt.verify(token, config.token.accessTokenSecret, (err: any, user: any) => {
 		if (err) {

@@ -1,39 +1,61 @@
 import { useState } from "react";
-import { NavbarBrand, NavbarToggler, Navbar } from "reactstrap";
+import { useHistory } from "react-router";
+import { NavbarBrand, NavbarToggler, Navbar, NavItem, NavLink, Nav, DropdownItem, DropdownMenu, DropdownToggle, UncontrolledDropdown } from "reactstrap";
+import AuthServices from "Services/auth.services";
+import { useTokenContext, useUserContext } from "Store";
+import { clearToken } from "Store/Token/tokenAction";
+import { clearUser } from "Store/User/userAction";
 
 const NavigationBar = () => {
 	const [isOpen, setIsOpen] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
+	const { userState, userDispatch } = useUserContext();
+	const { tokenDispatch, tokenState } = useTokenContext();
+	const history = useHistory();
+	const handleLogout = async () => {
+		setIsLoading(true);
+		try {
+			await AuthServices.logout(tokenState.RefreshToken);
+			tokenDispatch(clearToken());
+			userDispatch(clearUser());
+			history.push("/login");
+		} catch (error) {
+			console.error(error);
+		} finally {
+			setIsLoading(false);
+		}
+	};
 
 	const toggle = () => setIsOpen(!isOpen);
 	return (
-		<div>
-			<Navbar color="light" light expand="md">
-				<NavbarBrand href="/">📝 AskMe!</NavbarBrand>
-				<NavbarToggler onClick={toggle} />
-				{/* <Collapse isOpen={isOpen} navbar>
-					<Nav className="mr-auto" navbar>
-						<NavItem>
-							<NavLink href="/components/">Components</NavLink>
-						</NavItem>
-						<NavItem>
-							<NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
-						</NavItem>
-						<UncontrolledDropdown nav inNavbar>
-							<DropdownToggle nav caret>
-								Options
-							</DropdownToggle>
-							<DropdownMenu right>
-								<DropdownItem>Option 1</DropdownItem>
-								<DropdownItem>Option 2</DropdownItem>
-								<DropdownItem divider />
-								<DropdownItem>Reset</DropdownItem>
-							</DropdownMenu>
-						</UncontrolledDropdown>
-					</Nav>
-					<NavbarText>Simple Text</NavbarText>
-				</Collapse> */}
-			</Navbar>
-		</div>
+		<Navbar style={{ padding: "1% 5%" }} sticky="top" color="light" light expand="md">
+			<NavbarBrand href="/" className="mr-auto">
+				📝 AskMe!
+			</NavbarBrand>
+			<Nav navbar>
+				<UncontrolledDropdown nav inNavbar>
+					<DropdownToggle nav style={{ display: "flex", alignItems: "center" }}>
+						<i style={{ fontSize: "1.5rem" }} className="fas fa-user-circle"></i>
+						<i style={{ fontSize: "1rem" }} className="fas fa-caret-down ml-2"></i>
+					</DropdownToggle>
+					<DropdownMenu right>
+						<DropdownItem>Welcome, {userState.FirstName}</DropdownItem>
+						<DropdownItem divider />
+						<DropdownItem onClick={handleLogout} style={{ display: "flex", alignItems: "center" }}>
+							<span>Logout</span>
+							<i className="fas fa-sign-out-alt ml-2" />
+						</DropdownItem>
+						{/* <DropdownItem>Reset</DropdownItem> */}
+					</DropdownMenu>
+				</UncontrolledDropdown>
+				{/* <NavItem>{userState.FirstName}</NavItem>
+					<NavItem>
+						<NavLink href="/components/">
+							<i className="fas fa-sign-out-alt"></i>
+						</NavLink>
+					</NavItem> */}
+			</Nav>
+		</Navbar>
 	);
 };
 
