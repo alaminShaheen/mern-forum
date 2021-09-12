@@ -4,7 +4,7 @@ import { IQuestion } from "../Interfaces/question.interface";
 const QuestionSchema: Schema = new Schema({
 	Title: { type: String, required: true },
 	Description: { type: String },
-	CreatedBy: { type: Schema.Types.ObjectId, required: true },
+	CreatedBy: { type: String, required: true },
 	Answers: [
 		{
 			Description: {
@@ -16,7 +16,7 @@ const QuestionSchema: Schema = new Schema({
 				default: Date.now
 			},
 			CreatedBy: {
-				type: Schema.Types.ObjectId,
+				type: String,
 				required: true
 			}
 		}

@@ -23,9 +23,6 @@ const StyledInput = styled(Input)`
 
 const ReplyText = styled.small`
 	font-size: small;
-	&:hover {
-		text-decoration: underline;
-	}
 `;
 
 const Answers = ({ answers: answerData, isOpen = false, setIsOpen, questionId }: IAnswers) => {
@@ -64,23 +61,16 @@ const Answers = ({ answers: answerData, isOpen = false, setIsOpen, questionId }:
 	};
 
 	return (
-		<div>
+		<div className="mt-2">
 			{answers.length > 0 ? (
 				<>
-					<CardText onClick={() => setIsOpen(!isOpen)} style={{ cursor: "pointer" }}>
-						{isOpen ? (
-							<>
-								<BsIcons.BsArrowReturnRight />
-								<ReplyText className="ml-2 text-muted">Hide replies</ReplyText>
-							</>
-						) : (
-							<>
-								<BsIcons.BsArrowReturnRight />
-								<ReplyText className="ml-2 text-muted">{`${answers.length} ${answers.length === 1 ? "reply" : "replies"}`}</ReplyText>
-							</>
-						)}
+					<CardText>
+						<>
+							<BsIcons.BsArrowReturnRight />
+							<ReplyText className="ml-2 text-muted">{`${answers.length} ${answers.length === 1 ? "reply" : "replies"}`}</ReplyText>
+						</>
 					</CardText>
-					<Collapse
+					{/* <Collapse
 						isOpen={isOpen}
 						// onEntering={onEntering}
 						// onEntered={onEntered}
@@ -100,7 +90,7 @@ const Answers = ({ answers: answerData, isOpen = false, setIsOpen, questionId }:
 							name="text"
 							id="exampleText"
 						/>
-					</Collapse>
+					</Collapse> */}
 				</>
 			) : (
 				<CardText>

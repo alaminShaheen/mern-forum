@@ -7,7 +7,7 @@ const AnswerSchema: Schema = new Schema({
 		required: true
 	},
 	CreatedBy: {
-		type: Schema.Types.ObjectId,
+		type: String,
 		required: true
 	},
 	CreatedAt: {

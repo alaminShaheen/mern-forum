@@ -97,7 +97,7 @@ const Login = () => {
 						)}
 					/>
 				</FormGroup>
-				<ButtonComponent buttonText="Login" disabled={loading} onClick={handleSubmit(handleFormSubmit)} />
+				<ButtonComponent buttonText="Login" disabled={loading} onClick={handleSubmit(handleFormSubmit)} style={{width: "10rem", display: "block", margin: "2em auto"}} />
 				<p style={{ textAlign: "center", fontWeight: 500 }}>
 					Don't have an account?{" "}
 					<Link to={"/register"}>

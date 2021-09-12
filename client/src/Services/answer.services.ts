@@ -1,7 +1,7 @@
-import axios from "axios";
 import config from "Config/config";
+import { authHttpService } from "Interceptors/config";
 
 export const postAnswer = async (questionId: string, answer: string) => {
 	const body = { AnswerText: answer };
-	return await axios.post(`${config.apiEndpoints.answers}/create/${questionId}`, body);
+	return await authHttpService.post(`${config.apiEndpoints.answers}/create/${questionId}`, body);
 };

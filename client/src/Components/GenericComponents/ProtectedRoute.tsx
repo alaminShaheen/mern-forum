@@ -16,7 +16,6 @@ const ProtectedRoute = ({ component: Component, ...rest }: IProtectedRoute) => {
 		if (tokenState.AccessToken && tokenState.RefreshToken && userState.Email) {
 			console.log(jwtDecode<User>(tokenState.AccessToken));
 			if (jwtDecode<User>(tokenState.AccessToken)) {
-				console.log("hello");
 				return true;
 			}
 			return false;
@@ -33,7 +32,7 @@ const ProtectedRoute = ({ component: Component, ...rest }: IProtectedRoute) => {
 				) : (
 					<Redirect
 						to={{
-							pathname: "/login",
+							pathname: "/",
 							state: { from: props.location }
 						}}
 					/>

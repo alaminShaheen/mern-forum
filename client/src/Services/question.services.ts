@@ -1,11 +1,18 @@
-import axios from "axios";
+import { QuestionFormType } from "Components/AppComponents/AskQuestionForm";
 import config from "Config/config";
+import { authHttpService } from "Interceptors/config";
 
-export const getAllQuestions = async () => {
-	return await axios.get(config.apiEndpoints.questions);
+const getAllQuestions = async () => {
+	return await authHttpService.get(config.apiEndpoints.questions);
 };
 
-export const postQuestion = async (question: string) => {
-	const body = { QuestionText: question };
-	return await axios.post(`${config.apiEndpoints.questions}/create`, body);
+const postQuestion = async (formData: QuestionFormType) => {
+	return await authHttpService.post(`${config.apiEndpoints.questions}/create`, formData);
 };
+
+const QuestionServices = {
+	getAllQuestions,
+	postQuestion
+};
+
+export default QuestionServices;
