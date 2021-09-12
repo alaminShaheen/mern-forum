@@ -25,10 +25,10 @@ const InputField = ({ className, errorText, hasError, ...rest }: IInput) => {
 				<IF predicate={rest.type === "password"}>
 					<StyledInput {...rest} type={showPassword ? "text" : rest.type} invalid={!!hasError} />
 					<IF predicate={!showPassword}>
-						<i style={{ position: "absolute", top: `${hasError ? '20%' : '30%'}`, left: `${hasError ? '82%' : '90%'}` }} className="far fa-eye-slash" onClick={() => setShowPassword(!showPassword)} />
+						<i style={{ cursor: 'pointer', position: "absolute", top: `${hasError ? '20%' : '30%'}`, left: `${hasError ? '82%' : '90%'}` }} className="far fa-eye-slash" onClick={() => setShowPassword(!showPassword)} />
 					</IF>
 					<IF predicate={showPassword}>
-						<i style={{ position: "absolute", top: `${hasError ? '20%' : '30%'}`, left: `${hasError ? '82%' : '90%'}` }} className="far fa-eye" onClick={() => setShowPassword(!showPassword)} />
+						<i style={{ cursor: 'pointer', position: "absolute", top: `${hasError ? '20%' : '30%'}`, left: `${hasError ? '82%' : '90%'}` }} className="far fa-eye" onClick={() => setShowPassword(!showPassword)} />
 					</IF>
 				</IF>
 				<IF predicate={rest.type !== "password"}>

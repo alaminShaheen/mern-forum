@@ -49,8 +49,8 @@ const Home = () => {
 				 */}
 			</Col>
 			<Col style={{ flexBasis: "30%" }}>
-					<RightSection setQuestions={setQuestions} />
-				<Card className="mt-4 p-3" style={{height: '50%'}}>
+				<RightSection setQuestions={setQuestions} />
+				<Card className="mt-4 p-3" style={{ height: "50%" }}>
 					yo mamam
 				</Card>
 			</Col>

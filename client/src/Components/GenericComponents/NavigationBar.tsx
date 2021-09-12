@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useHistory } from "react-router";
+import { Link } from "react-router-dom";
 import { NavbarBrand, NavbarToggler, Navbar, NavItem, NavLink, Nav, DropdownItem, DropdownMenu, DropdownToggle, UncontrolledDropdown } from "reactstrap";
 import AuthServices from "Services/auth.services";
 import { useTokenContext, useUserContext } from "Store";
@@ -29,9 +30,9 @@ const NavigationBar = () => {
 	const toggle = () => setIsOpen(!isOpen);
 	return (
 		<Navbar style={{ padding: "1% 5%" }} sticky="top" color="light" light expand="md">
-			<NavbarBrand href="/" className="mr-auto">
-				📝 AskMe!
-			</NavbarBrand>
+			<Link to="/" className="mr-auto">
+				<NavbarBrand>📝 AskMe!</NavbarBrand>
+			</Link>
 			<Nav navbar>
 				<UncontrolledDropdown nav inNavbar>
 					<DropdownToggle nav style={{ display: "flex", alignItems: "center" }}>
@@ -45,15 +46,8 @@ const NavigationBar = () => {
 							<span>Logout</span>
 							<i className="fas fa-sign-out-alt ml-2" />
 						</DropdownItem>
-						{/* <DropdownItem>Reset</DropdownItem> */}
 					</DropdownMenu>
 				</UncontrolledDropdown>
-				{/* <NavItem>{userState.FirstName}</NavItem>
-					<NavItem>
-						<NavLink href="/components/">
-							<i className="fas fa-sign-out-alt"></i>
-						</NavLink>
-					</NavItem> */}
 			</Nav>
 		</Navbar>
 	);

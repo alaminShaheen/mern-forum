@@ -1,15 +1,14 @@
-import Answer from "Components/AppComponents/Answer";
 import { Answer as AnswerModel } from "Models/answer.model";
 import { useState } from "react";
 import { CardText, Collapse, Input } from "reactstrap";
 import * as BsIcons from "react-icons/bs";
-import * as AnswerServices from "Services/answer.services";
 import styled from "styled-components";
+import Answer from "Components/AppComponents/Answer";
+import AnswerServices from "Services/answer.services";
+import { useUserContext } from "Store";
 
 interface IAnswers {
 	answers: AnswerModel[];
-	isOpen: boolean;
-	setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 	questionId: string;
 }
 
@@ -19,17 +18,23 @@ const StyledInput = styled(Input)`
 		border: 2px solid rgb(96, 165, 250);
 		box-shadow: none;
 	}
+	padding-right: 3em;
+	height: 100px;
+	overflow-y: hidden;
 `;
 
 const ReplyText = styled.small`
 	font-size: small;
+	cursor: pointer;
 `;
 
-const Answers = ({ answers: answerData, isOpen = false, setIsOpen, questionId }: IAnswers) => {
+const Answers = ({ answers: answerData, questionId }: IAnswers) => {
 	const [answers, setAnswers] = useState<AnswerModel[]>(answerData);
 	const [status, setStatus] = useState("Closed");
 	const [answerText, setAnswerText] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
+	const [isOpen, setIsOpen] = useState(true);
+	const { userState, userDispatch } = useUserContext();
 
 	const onEntering = () => setStatus("Opening...");
 
@@ -42,10 +47,8 @@ const Answers = ({ answers: answerData, isOpen = false, setIsOpen, questionId }:
 	const postAnswer = async () => {
 		setIsLoading(true);
 		try {
-			const {
-				data: { answer }
-			}: any = await AnswerServices.postAnswer(questionId, answerText);
-			setAnswers((prev) => [...prev, new AnswerModel(answer)]);
+			const { data }: any = await AnswerServices.postAnswer(questionId, { Description: answerText, CreatedBy: `${userState?.FirstName ?? "User"} ${userState.LastName}` });
+			setAnswers((prev) => [...prev, new AnswerModel(data)]);
 		} catch (error) {
 			console.log(error);
 		} finally {
@@ -64,13 +67,15 @@ const Answers = ({ answers: answerData, isOpen = false, setIsOpen, questionId }:
 		<div className="mt-2">
 			{answers.length > 0 ? (
 				<>
-					<CardText>
-						<>
-							<BsIcons.BsArrowReturnRight />
-							<ReplyText className="ml-2 text-muted">{`${answers.length} ${answers.length === 1 ? "reply" : "replies"}`}</ReplyText>
-						</>
+					<CardText onClick={() => setIsOpen(!isOpen)} style={{ cursor: "pointer" }}>
+						<BsIcons.BsArrowReturnRight />
+						{isOpen ? (
+							<ReplyText className="ml-2 text-muted">Hide all replies</ReplyText>
+						) : (
+							<ReplyText className="ml-2 text-muted">{answers.length > 1 ? `View all ${answers.length} replies` : "View 1 reply"}</ReplyText>
+						)}
 					</CardText>
-					{/* <Collapse
+					<Collapse
 						isOpen={isOpen}
 						// onEntering={onEntering}
 						// onEntered={onEntered}
@@ -80,6 +85,8 @@ const Answers = ({ answers: answerData, isOpen = false, setIsOpen, questionId }:
 						{answers.map((answer) => (
 							<Answer answer={answer} key={answer.Id} />
 						))}
+					</Collapse>
+					<div style={{ position: "relative" }}>
 						<StyledInput
 							onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) => onEnterPress(e)}
 							onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAnswerText(e.target.value)}
@@ -88,9 +95,9 @@ const Answers = ({ answers: answerData, isOpen = false, setIsOpen, questionId }:
 							placeholder="Write a reply..."
 							type="textarea"
 							name="text"
-							id="exampleText"
 						/>
-					</Collapse> */}
+						<i onClick={() => answerText && postAnswer()} style={{ position: "absolute", top: "40%", right: "2%", cursor: "pointer" }} className="fas fa-paper-plane"></i>
+					</div>
 				</>
 			) : (
 				<CardText>
