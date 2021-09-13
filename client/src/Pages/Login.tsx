@@ -65,7 +65,7 @@ const Login = () => {
 		}
 	};
 	return (
-		<Container style={{ padding: "0 25%", height: "calc(100vh - 23px)", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+		<Container style={{ width: '20%', minWidth: "25rem", height: "calc(100vh - 23px)", display: "flex", flexDirection: "column", justifyContent: "center" }}>
 			<Title titleText="Sign In"></Title>
 			<AlertMessage alert={alertState} />
 			<Form onSubmit={handleSubmit(handleFormSubmit)}>

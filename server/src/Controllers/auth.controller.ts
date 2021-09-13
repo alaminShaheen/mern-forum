@@ -76,7 +76,6 @@ const refreshToken = async (req: Request, res: Response) => {
 	else {
 		console.log(refreshToken);
 		const token = await Token.findOne({ Value: refreshToken });
-		console.log("tjis is token", token?.Value);
 		if (!token) return res.status(403).json({ message: "Invalid refresh token" });
 	}
 	jwt.verify(refreshToken, config.token.refreshTokenSecret, async (err: any, user: any) => {

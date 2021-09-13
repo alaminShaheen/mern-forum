@@ -68,7 +68,7 @@ const Register = () => {
 	};
 
 	return (
-		<Container style={{ padding: "0 25%", height: "calc(100vh - 23px)", display: "flex", flexDirection: "column", justifyContent: "center", overflow: 'hidden' }}>
+		<Container style={{ width: '20%', minWidth: "25rem", height: "calc(100vh - 23px)", display: "flex", flexDirection: "column", justifyContent: "center", overflow: 'hidden' }}>
 			<Title titleText="Sign Up"></Title>
 			<AlertMessage alert={alertState} />
 			<Form onSubmit={handleSubmit(handleFormSubmit)}>
