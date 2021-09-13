@@ -9,17 +9,13 @@ interface IQuestions {
 }
 
 const Questions = ({ questionsData }: IQuestions) => {
-	const QuestionContainer = styled(Container)`
-		width: 90%;
-		margin: 2em auto;
-	`;
 
 	return (
-		<QuestionContainer className="mb-5">
+		<Container className="mb-5">
 			{questionsData.map((question) => (
 				<SingleQuestion question={question} key={question.Id} />
 			))}
-		</QuestionContainer>
+		</Container>
 	);
 };
 

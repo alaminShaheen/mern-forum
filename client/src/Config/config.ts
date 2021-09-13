@@ -5,7 +5,8 @@ const config = {
 	},
 	apiEndpoints: {
 		questions: process.env.NODE_ENV === "production" ? "https://server-mern-forum.herokuapp.com/questions" : "http://localhost:1337/questions",
-		answers: process.env.NODE_ENV === "production" ? "https://server-mern-forum.herokuapp.com/answers" : "http://localhost:1337/answers"
+		answers: process.env.NODE_ENV === "production" ? "https://server-mern-forum.herokuapp.com/answers" : "http://localhost:1337/answers",
+		auth: process.env.NODE_ENV === "production" ? "https://server-mern-forum.herokuapp.com" : "http://localhost:1337"
 	}
 };
 

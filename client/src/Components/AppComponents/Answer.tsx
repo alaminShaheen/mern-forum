@@ -11,9 +11,11 @@ const Answer = ({ answer }: IAnswer) => {
 		<Card className="mb-3">
 			<CardBody>
 				{/* <CardTitle tag="h5">Card Title</CardTitle> */}
-				<CardText>{answer.AnswerText}</CardText>
+				<CardText>{answer.Description}</CardText>
 				<CardText>
-					<small className="text-muted">{"Posted " + relativeTimeFromDates(new Date(answer.CreatedAt))}</small>
+					<small className="text-muted">
+						{`Replied ${relativeTimeFromDates(new Date(answer.CreatedAt))} by `} <span style={{ color: "black", fontWeight: 400, fontStyle: "italic" }}>{answer.CreatedBy}</span>
+					</small>
 				</CardText>
 			</CardBody>
 		</Card>

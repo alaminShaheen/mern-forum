@@ -20,7 +20,7 @@ const config = {
 		port: process.env.SERVER_PORT || 5000
 	},
 	token: {
-		expireTime: process.env.SERVER_TOKEN_EXPIRE_TIME || 3600,
+		expireTime: process.env.SERVER_TOKEN_EXPIRE_TIME || 10,
 		accessTokenSecret: process.env.SECRET_ACCESS_TOKEN || "secret",
 		refreshTokenSecret: process.env.SECRET_REFRESH_TOKEN || "refresh"
 	}

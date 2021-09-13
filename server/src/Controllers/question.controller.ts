@@ -7,12 +7,12 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
 	logging.info("Attempting to create new question");
 	const { Title, Description, CreatedBy, CreatedAt }: IQuestion = req.body;
 
-	if (!Title || !CreatedBy || typeof Title !== "string" || typeof CreatedBy !== "string") {
+	if (!Title || !CreatedBy || !Description || typeof Description !== "string" || typeof Title !== "string" || typeof CreatedBy !== "string") {
 		return res.status(400).json({ message: "Invalid request" });
 	}
 
 	try {
-		const question = await Question.create({ Title, Description, CreatedBy, Answers: [], CreatedAt: CreatedAt || new Date() });
+		const question = await Question.create({ Title, Description, CreatedBy, Answers: [] });
 		logging.info(`New Question ${question._id} created`);
 		return res.status(201).json(question);
 	} catch (error) {

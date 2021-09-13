@@ -7,7 +7,7 @@ import Question from "../Models/question.model";
 const create = async (req: Request, res: Response, next: NextFunction) => {
 	const questionId = req.params.questionId;
 	logging.info(`Attempting to create new answer to question ${questionId}`);
-	const { Description, CreatedAt, CreatedBy }: IAnswer = req.body;
+	const { Description, CreatedBy }: IAnswer = req.body;
 	if (!Description || !CreatedBy || typeof Description !== "string" || typeof CreatedBy !== "string") {
 		return res.status(400).json({ message: "Invalid request" });
 	}
@@ -15,7 +15,7 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
 		const question = await Question.findById({ _id: questionId });
 		if (!question) throw new Error("Question does not exist");
 		else {
-			const answer = await Answer.create({ Description, CreatedAt: CreatedAt || new Date(), CreatedBy });
+			const answer = await Answer.create({ Description, CreatedBy });
 			console.log(answer);
 			await Question.updateOne({ _id: questionId }, { $push: { Answers: answer } });
 			logging.info(`New answer ${answer._id} created`);
